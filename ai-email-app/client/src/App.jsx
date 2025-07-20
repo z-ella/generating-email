@@ -37,7 +37,7 @@ export default function AIEmailGenerator() {
     setCopied(false);
 
     try {
-     const response = await fetch('/generate-email', {  // <--- remove 'http://localhost:5000'
+     const response = await fetch('/generate-email', {  
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ export default function AIEmailGenerator() {
   return {
     container: {
       minHeight: '100vh',
-      backgroundColor: '#0f172a', // Dark navy
+      backgroundColor: '#0f172a', 
       padding: isMobile ? '10px' : '20px',
       fontFamily: 'Arial, sans-serif'
     },
