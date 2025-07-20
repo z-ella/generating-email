@@ -11,9 +11,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Initialize Groq client (not OpenAI)
+
 const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY, // Make sure this matches your .env variable
+  apiKey: process.env.GROQ_API_KEY, 
 });
 
 app.post('/generate-email', async (req, res) => {
@@ -21,7 +21,7 @@ app.post('/generate-email', async (req, res) => {
 
   const { sender, recipient, subject, tone, purpose, keyPoints, length } = req.body;
 
-  // Validate required fields
+ 
   if (!subject || !tone || !purpose) {
     return res.status(400).json({ error: 'Subject, tone, and purpose are required fields' });
   }
