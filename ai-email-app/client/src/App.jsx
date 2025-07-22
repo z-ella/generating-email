@@ -3,15 +3,18 @@ import React, { useState } from 'react';
 export default function AIEmailGenerator() {
   const [formData, setFormData] = useState({
     sender: '',
+    recipient_name: '',
     recipient: '',
     subject: '',
     tone: 'professional',
     purpose: '',
     keyPoints: '',
-    length: 'medium'
+    length: 'medium',
+    attachment: null
   });
   const [generatedEmail, setGeneratedEmail] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
+  const [file, setFile] = useState(null);
   const [copied, setCopied] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -66,15 +69,33 @@ export default function AIEmailGenerator() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleDownload = () => {
-    const blob = new Blob([generatedEmail], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'generated-email.txt';
-    a.click();
-    URL.revokeObjectURL(url);
-  };
+  const handleSendEmail = async () => {
+  const formDataToSend = new FormData();
+  formDataToSend.append("recipient", formData.recipient);
+  formDataToSend.append("subject", formData.subject);
+  formDataToSend.append("emailBody", generatedEmail);
+  if (file) {
+    formDataToSend.append("attachment", file);
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/send-email", {
+      method: "POST",
+      body: formDataToSend,
+    });
+    const data = await res.json();
+    if (data.success) {
+      alert("✅ Email sent!");
+    } else {
+      alert("❌ Failed to send email.");
+    }
+  } catch (err) {
+    console.error(err);
+    alert("❌ An error occurred.");
+  }
+};
+
+
 
   const getResponsiveStyles = () => {
   const isMobile = windowWidth < 768;
@@ -288,7 +309,7 @@ export default function AIEmailGenerator() {
             Craft professional, personalized emails in seconds with the power of AI
           </p>
         </div>
-
+   
         <div style={styles.grid}>
           {/* Input Form */}
           <div style={styles.card}>
@@ -307,16 +328,28 @@ export default function AIEmailGenerator() {
                   placeholder="your name"
                   style={styles.input}
                 />
+
+              </div>
+              <div style={styles.formGroup}>
+                <label style={styles.label}>👤 Recipient Name</label>
+                <input
+                  type="text"
+                  name="recipient_name"
+                  value={formData.recipient_name}
+                  onChange={handleInputChange}
+                  placeholder="name of the recipient"
+                  style={styles.input}
+                />
               </div>
 
               <div style={styles.formGroup}>
-                <label style={styles.label}>👤 Recipient Name</label>
+                <label style={styles.label}>👤 Recipient email</label>
                 <input
                   type="text"
                   name="recipient"
                   value={formData.recipient}
                   onChange={handleInputChange}
-                  placeholder="name of the recipient"
+                  placeholder="recipient@example.com"
                   style={styles.input}
                 />
               </div>
@@ -387,6 +420,16 @@ export default function AIEmailGenerator() {
                   style={styles.textarea}
                 />
               </div>
+              <div style={styles.formGroup}>
+                <label style={styles.label}>📎 Attach File</label>
+                <input
+                  type="file"
+                  name="attachment"
+                  onChange={(e) => setFile(e.target.files[0])}
+                  style={styles.input}
+                />
+              </div>
+
 
               <button
                 onClick={handleGenerate}
@@ -422,12 +465,12 @@ export default function AIEmailGenerator() {
                     📋 {copied ? 'Copied!' : 'Copy'}
                   </button>
                   <button
-                    onClick={handleDownload}
-                    style={styles.actionButton}
-                    title="download"
-                  >
-                    📧 download
-                  </button>
+                onClick={handleSendEmail}
+                style={styles.actionButton}
+                title="send email"
+              >
+                📤 Send Email
+              </button>
                 </div>
               )}
             </div>
