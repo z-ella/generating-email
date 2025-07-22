@@ -83,12 +83,12 @@ export default function AIEmailGenerator() {
   return {
     container: {
       minHeight: '100vh',
-      backgroundColor: '#0f172a', 
+      backgroundColor: '#000000ff', 
       padding: isMobile ? '10px' : '20px',
       fontFamily: 'Arial, sans-serif'
     },
     maxWidth: {
-      maxWidth: '1200px',
+      maxWidth: 'flex',
       margin: '0 auto'
     },
     header: {
@@ -97,7 +97,7 @@ export default function AIEmailGenerator() {
       paddingTop: isMobile ? '20px' : '40px'
     },
     icon: {
-      background: 'linear-gradient(45deg, #38bdf8 0%, #6366f1 100%)',
+      background: 'linear-gradient(45deg, #ffffffff 0%, #ffffffff 100%)',
       padding: isMobile ? '12px' : '15px',
       borderRadius: '50%',
       display: 'inline-block',
@@ -125,10 +125,10 @@ export default function AIEmailGenerator() {
     },
     card: {
       flex: 1,
-      backgroundColor: '#1e293b',
+      backgroundColor: '#1c1c1cff',
       borderRadius: isMobile ? '16px' : '24px',
       padding: isMobile ? '20px' : '40px',
-      border: '1px solid #334155',
+      border: '1px solid #4c4c4dff',
       boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
       minWidth: 0
     },
@@ -154,8 +154,8 @@ export default function AIEmailGenerator() {
     input: {
       width: '100%',
       padding: isMobile ? '10px 14px' : '12px 16px',
-      backgroundColor: '#0f172a',
-      border: '1px solid #334155',
+      backgroundColor: '#1d1d1dff',
+      border: '1px solid #ffffffff',
       borderRadius: '12px',
       color: '#f8fafc',
       fontSize: isMobile ? '14px' : '16px',
@@ -166,8 +166,8 @@ export default function AIEmailGenerator() {
     textarea: {
       width: '100%',
       padding: isMobile ? '10px 14px' : '12px 16px',
-      backgroundColor: '#0f172a',
-      border: '1px solid #334155',
+      backgroundColor: '#262627ff',
+      border: '1px solid #ffffffff',
       borderRadius: '12px',
       color: '#f8fafc',
       fontSize: isMobile ? '14px' : '16px',
@@ -179,10 +179,10 @@ export default function AIEmailGenerator() {
     select: {
       width: '100%',
       padding: isMobile ? '10px 14px' : '12px 16px',
-      backgroundColor: '#0f172a',
-      border: '1px solid #334155',
+      backgroundColor: '#1b1b1bff',
+      border: '1px solid #ffffffff',
       borderRadius: '12px',
-      color: '#f8fafc',
+      color: '#ffffffff',
       fontSize: isMobile ? '14px' : '16px',
       outline: 'none',
       boxSizing: 'border-box'
@@ -194,7 +194,7 @@ export default function AIEmailGenerator() {
     },
     button: {
       width: '100%',
-      background: 'linear-gradient(45deg, #38bdf8 0%, #6366f1 100%)',
+      background: 'linear-gradient(45deg, #000000ff 0%, #000000ff 100%)',
       color: 'white',
       fontWeight: '600',
       padding: isMobile ? '14px 20px' : '16px 24px',
@@ -226,7 +226,7 @@ export default function AIEmailGenerator() {
     },
     actionButton: {
       background: '#334155',
-      color: '#f1f5f9',
+      color: '#ffffffff',
       padding: isMobile ? '6px 10px' : '8px 12px',
       borderRadius: '8px',
       border: 'none',
@@ -251,7 +251,7 @@ export default function AIEmailGenerator() {
       textAlign: 'center'
     },
     placeholderIcon: {
-      background: 'linear-gradient(45deg, #38bdf8 0%, #6366f1 100%)',
+      background: 'linear-gradient(45deg, #3b3b3bff 0%, #434344ff 100%)',
       padding: isMobile ? '12px' : '16px',
       borderRadius: '50%',
       marginBottom: '16px',
@@ -259,7 +259,7 @@ export default function AIEmailGenerator() {
       fontSize: isMobile ? '24px' : '32px'
     },
     email: {
-      color: '#f1f5f9',
+      color: '#ffffffff',
       whiteSpace: 'pre-wrap',
       fontFamily: 'monospace',
       fontSize: isMobile ? '13px' : '15px',
@@ -275,7 +275,6 @@ export default function AIEmailGenerator() {
   };
 };
 
-
   const styles = getResponsiveStyles();
 
   return (
@@ -283,7 +282,7 @@ export default function AIEmailGenerator() {
       <div style={styles.maxWidth}>
         {/* Header */}
         <div style={styles.header}>
-          <div style={styles.icon}>✨</div>
+          <div style={styles.icon}></div>
           <h1 style={styles.title}>AI Email Generator</h1>
           <p style={styles.subtitle}>
             Craft professional, personalized emails in seconds with the power of AI
@@ -373,7 +372,7 @@ export default function AIEmailGenerator() {
                   name="purpose"
                   value={formData.purpose}
                   onChange={handleInputChange}
-                  placeholder="Schedule a meeting to discuss the new project"
+                  placeholder="reason for the email"
                   style={styles.input}
                 />
               </div>
@@ -425,9 +424,9 @@ export default function AIEmailGenerator() {
                   <button
                     onClick={handleDownload}
                     style={styles.actionButton}
-                    title="send as email"
+                    title="download"
                   >
-                    📧 Send
+                    📧 download
                   </button>
                 </div>
               )}
@@ -440,7 +439,7 @@ export default function AIEmailGenerator() {
                 <div style={styles.placeholder}>
                   <div style={styles.placeholderIcon}>📧</div>
                   <p style={{color: '#cbd5e1', fontSize: '18px', marginBottom: '8px'}}>
-                    Your AI-generated email will appear here
+                    Your AI-generated email will appear here once you are done filling the parameters and launch the generation
                   </p>
                   <p style={{color: '#94a3b8', fontSize: '14px'}}>
                     Fill in the details and click "Generate Email" to get started
@@ -454,7 +453,7 @@ export default function AIEmailGenerator() {
         {/* Footer */}
         <div style={styles.footer}>
           <p style={{color: '#cbd5e1', fontSize: '14px'}}>
-            Powered by AI • Create professional emails in seconds
+            Create professional emails in seconds using our AMAZING ai tool
           </p>
         </div>
       </div>
