@@ -85,13 +85,13 @@ export default function AIEmailGenerator() {
     });
     const data = await res.json();
     if (data.success) {
-      alert("✅ Email sent!");
+      alert("Email sent!");
     } else {
-      alert("❌ Failed to send email.");
+      alert("Failed to send email.");
     }
   } catch (err) {
     console.error(err);
-    alert("❌ An error occurred.");
+    alert(" An error occurred.");
   }
 };
 
