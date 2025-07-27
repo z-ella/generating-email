@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import "./App.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 export default function AIEmailGenerator() {
   const [formData, setFormData] = useState({
@@ -85,15 +89,16 @@ export default function AIEmailGenerator() {
     });
     const data = await res.json();
     if (data.success) {
-      alert("Email sent!");
+      toast.success("📨 Email sent successfully!");
     } else {
-      alert("Failed to send email.");
+      toast.error("❌ Failed to send email.");
     }
   } catch (err) {
     console.error(err);
-    alert(" An error occurred.");
+    toast.error("⚠️ An error occurred while sending the email.");
   }
 };
+
 
 
 
@@ -299,6 +304,7 @@ export default function AIEmailGenerator() {
   const styles = getResponsiveStyles();
 
   return (
+    
     <div style={styles.container}>
       <div style={styles.maxWidth}>
         {/* Header */}
@@ -309,6 +315,16 @@ export default function AIEmailGenerator() {
             Craft professional, personalized emails in seconds with the power of AI
           </p>
         </div>
+        <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop
+      closeOnClick
+      pauseOnHover
+      draggable
+      theme="colored"
+    />
    
         <div style={styles.grid}>
           {/* Input Form */}
@@ -471,6 +487,26 @@ export default function AIEmailGenerator() {
               >
                 📤 Send Email
               </button>
+              <ToastContainer
+                    position="top-center"
+                    autoClose={3000}
+                    hideProgressBar={true}
+                    closeOnClick
+                    pauseOnHover
+                    draggable={false}
+                    theme="colored"
+                    toastStyle={{
+                      borderRadius: "12px",
+                      padding: "20px",
+                      textAlign: "center",
+                      fontSize: "16px",
+                      minWidth: "250px",
+                      maxWidth: "350px",
+                      boxShadow: "0 5px 15px rgba(0,0,0,0.3)",
+                      background: "#ffffff",
+                      color: "#333",
+                    }}
+                  />
                 </div>
               )}
             </div>
@@ -501,5 +537,4 @@ export default function AIEmailGenerator() {
         </div>
       </div>
     </div>
-  );
-}
+  );}
